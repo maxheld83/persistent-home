@@ -2,9 +2,12 @@ workflow "Test persistence" {
  on = "push"
  resolves = [
    "look around",
-   "check workspace",
-   "check github/home",
-   "check home"
+   "touch /github/workspace",
+   "check /github/workspace",
+   "touch /github/home",
+   "check /github/home",
+   "touch /home",
+   "check /home"
  ]
 }
 
@@ -15,37 +18,37 @@ action "look around" {
 }
 
 
-action "touch workspace" {
+action "touch /github/workspace" {
   uses = "actions/bin/sh@master"
   args = ["touch foo"]
 }
 
-action "check workspace" {
+action "check /github/workspace" {
   uses = "actions/bin/sh@master"
   args = ["ls -lr foo", "rm foo"]
-  needs = "touch workspace"
+  needs = "touch /github/workspace"
 }
 
 
-action "touch github/home" {
+action "touch /github/home" {
   uses = "actions/bin/sh@master"
   args = ["touch /github/home/foo"]
 }
 
-action "check github/home" {
+action "check /github/home" {
   uses = "actions/bin/sh@master"
-  args = ["ls -lr github/home/foo", "rm github/home/foo"]
-  needs = "touch github/home"
+  args = ["ls -lr /github/home/foo", "rm /github/home/foo"]
+  needs = "touch /github/home"
 }
 
 
-action "touch home" {
+action "touch /home" {
   uses = "actions/bin/sh@master"
   args = ["touch /home/foo"]
 }
 
-action "check home" {
+action "check /home" {
   uses = "actions/bin/sh@master"
   args = ["ls -lr /home/foo", "rm -rf /home/foo"]
-  needs = "touch home"
+  needs = "touch /home"
 }
