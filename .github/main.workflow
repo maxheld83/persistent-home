@@ -26,7 +26,6 @@ action "touch /github/workspace" {
 action "check /github/workspace" {
   uses = "actions/bin/sh@master"
   args = ["ls -lr foo", "rm foo"]
-  needs = "touch /github/workspace"
 }
 
 
@@ -38,7 +37,6 @@ action "touch /github/home" {
 action "check /github/home" {
   uses = "actions/bin/sh@master"
   args = ["ls -lr /github/home/foo", "rm /github/home/foo"]
-  needs = "touch /github/home"
 }
 
 
@@ -50,5 +48,4 @@ action "touch /home" {
 action "check /home" {
   uses = "actions/bin/sh@master"
   args = ["ls -lr /home/foo", "rm -rf /home/foo"]
-  needs = "touch /home"
 }
